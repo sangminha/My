@@ -1,44 +1,60 @@
 package com.example.my
 
+
+import android.content.Context
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.example.my.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.HashMap
 
-class MyAdapter(private val userList : ArrayList<User>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+
+class MyAdapter(
+    val mContext : Context, val mList : List<User>
+) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+
+    inner class MyViewHolder (view : View) : RecyclerView.ViewHolder(view) {
+        fun bind(item: User) {
+
+            val short = itemView.findViewById<TextView>(R.id.tvfirstName)
+            val long_1 = itemView.findViewById<TextView>(R.id.tvlastName)
+            val short_1 = itemView.findViewById<TextView>(R.id.tvage)
+
+            short.text=item.short
+            long_1.text=item.long_1
+            short_1.text=item.short_1
+
+
+//            수정 버튼 클릭 이벤트
+
+        }
+    }
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.list_layout,
-            parent,false)
-        return MyViewHolder(itemView)
-
+        val row = LayoutInflater.from(mContext).inflate(R.layout.activity_user, parent, false)
+        return MyViewHolder(row)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
-        val currentitem = userList[position]
-
-        holder.firstName.text = currentitem.Short
-        holder.lastName.text = currentitem.Long
-        holder.age.text = currentitem.time
-
+        holder.bind(mList[position])
     }
 
     override fun getItemCount(): Int {
-
-        return userList.size
+        return mList.size
     }
 
-
-    class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-
-        val firstName : TextView = itemView.findViewById(R.id.tvfirstName)
-        val lastName : TextView = itemView.findViewById(R.id.tvlastName)
-        val age : TextView = itemView.findViewById(R.id.tvage)
-
-    }
 
 }

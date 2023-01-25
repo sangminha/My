@@ -1,3 +1,5 @@
 package com.example.my
 
-data class User(var Short : String ?= null,var Long : String ?= null,var time : String ?= null)
+import java.io.Serializable
+
+class User(var short: String, var long_1: String, var short_1: String)

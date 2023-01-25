@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         recyclerbtn.setOnClickListener {
 
-            var i = Intent(this,UserlistActivity::class.java)
+            var i = Intent(this,UserActivity::class.java)
             startActivity(i)
             finish()
 
