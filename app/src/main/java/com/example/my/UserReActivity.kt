@@ -13,7 +13,6 @@ class UserReActivity : BaseActivity() {
     lateinit var mReplyAdapter: MyAdapter
     val mReplyList = ArrayList<User>()
     private lateinit var dbref : DatabaseReference
-
     lateinit var mChatData: User
     lateinit var binding: ActivityUserBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,25 +25,31 @@ class UserReActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+        FirebaseDatabase.getInstance().reference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                binding.firstShort.text=dataSnapshot.value.toString()
+                binding.firstShort.text
+                mReplyAdapter.notifyDataSetChanged()
 
 
+
+            }
+
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
     }
 
 
     override fun setValues() {
-        FirebaseDatabase.getInstance().reference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (snapshot in dataSnapshot.children) {
-                    User(
-                        short = snapshot.value.toString(),
-                        long_1 = snapshot.value.toString(),
-                        short_1 = snapshot.value.toString()
-                    )
-
-                    mReplyAdapter = MyAdapter(mContext, mReplyList)
-                    binding.userList.adapter = mReplyAdapter
-                    binding.userList.layoutManager = LinearLayoutManager(mContext)
-                }
+        mReplyAdapter = MyAdapter(mContext, mReplyList)
+        binding.profile.adapter = mReplyAdapter
+        binding.profile.layoutManager = LinearLayoutManager(mContext)
+    }
 
 //    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 //        super.onActivityResult(requestCode, resultCode, data)
@@ -57,10 +62,4 @@ class UserReActivity : BaseActivity() {
 //            }
 //        }
 //    }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-            }
-        })
-    }
 }
