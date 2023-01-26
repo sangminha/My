@@ -2,6 +2,7 @@ package com.example.my
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.my.databinding.ActivityUserBinding
@@ -34,10 +35,10 @@ class UserReActivity : BaseActivity() {
     }
     override fun setupEvents() {
 
-        realtime.getReference("data").child("message").addValueEventListener(
+        realtime.getReference("users").child("time_1").addValueEventListener(
             object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-
+                    Log.d("TAG",mReplyList.toString())
                     mReplyList.clear()
 
                     for (child in snapshot.children) {
