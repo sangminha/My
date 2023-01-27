@@ -10,18 +10,16 @@ import androidx.recyclerview.widget.RecyclerView
 
 
 class MyAdapter(
-    val mContext : Context, val mList : List<User>
+    private val mContext : Context, private val mList : List<User>
 ) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
     inner class MyViewHolder (view : View) : RecyclerView.ViewHolder(view) {
         fun bind(item: User) {
 
-            val short = itemView.findViewById<TextView>(R.id.tvfirstName)
-
-
-            short.text=item.short
-
-
+            val short =  itemView.findViewById<TextView>(R.id.tvfirstName_1)
+            val long1 = itemView.findViewById<TextView>(R.id.tvlastName_1)
+            short.text=item.short.toString()
+            long1.text=item.long_1.toString()
 
 //            수정 버튼 클릭 이벤트
 
@@ -31,7 +29,7 @@ class MyAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val row = LayoutInflater.from(mContext).inflate(R.layout.activity_user, parent, false)
+        val row = LayoutInflater.from(mContext).inflate(R.layout.userlist, parent, false)
         return MyViewHolder(row)
     }
 
